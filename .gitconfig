@@ -1,0 +1,10 @@
+[user]
+	name = tls1235
+	email = yotam.mini3@gmail.com
+[init]
+	defaultbranch = main
+[credential]
+	helper = store
+#helper = cache --timeout=43200
+[core]
+	editor = nvim

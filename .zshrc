@@ -32,5 +32,9 @@ zstyle ':completion:*' matcher-list \
   'l:|=* r:|=*'
 alias ll='ls -ah'
 alias nix-gc='nix-collect-garbage -d'
-source .functions.sh
+alias vi=nvim
+alias soft="systemctl soft-reboot"
+alias hard="shutdown now"
+alias night="systemctl suspend & sleep 5 && pkill -9 kitty"
+source ~/.functions.sh
 export NIXPKGS_ALLOW_UNFREE=1
