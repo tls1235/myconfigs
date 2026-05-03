@@ -13,7 +13,7 @@ hloc() {
   --update) sudo find "$(pwd)" -name ".git" -prune -o -name ".snapshots" -prune -o -name ".cargo" -prune -o -print | grep -v -e "%" | sudo tee /var/lib/hloc/"$USER".db >/dev/null ;;
   "") return ;;
   *)
-    cd ~/javaprojects/hloc
+    cd /var/lib/hloc
     input="$(grep "$1" /var/lib/hloc/"$USER".db)"
     echo "$input" | java Main "$1"
     cd $currentdir
