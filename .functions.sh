@@ -1,5 +1,5 @@
 nix-search() {
-  nix search nixpkgs "$1" --json | jq -r '.[] | "\(.pname): \(.description)"'
+  sudo nix search nixpkgs "$1" --json | jq -r '.[] | "\(.pname): \(.description)"'
 }
 lls() {
   ls -ah $1 | grep $2
@@ -7,7 +7,7 @@ lls() {
 hloc() {
   currentdir=$(pwd)
   case $1 in
-  --update) sudo find "$(pwd)" -name ".git" -prune -o -name ".snapshots" -prune -o -name ".cargo" -prune -o -print | sudo tee /var/lib/hloc.db >/dev/null ;;
+  --update) sudo find "$(pwd)" -name ".git" -prune -o -name ".snapshots" -prune -o -name ".cargo" -prune -o -print | grep -v -e "%" | sudo tee /var/lib/hloc.db >/dev/null ;;
   "") return ;;
   *)
     cd ~/javaprojects/hloc
@@ -19,8 +19,8 @@ hloc() {
   esac
 }
 nix-update() {
-  nix profile upgrade --all --refresh --impure
+  sudo nix profile upgrade --all --refresh --impure
 }
 nix-add() {
-  nix profile add nixpkgs#"$1" --impure
+  sudo nix profile add nixpkgs#"$1" --impure
 }
