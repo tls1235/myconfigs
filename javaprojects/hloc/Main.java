@@ -11,7 +11,7 @@ public class Main {
     String[] input = temp.toArray(new String[0]);
     for (int i = 0; i < input.length; i++) {
       if (input[i].substring(input[i].lastIndexOf("/")).contains(args[0])) {
-        System.out.println(input[i]);
+        System.out.println(input[i].replace(" ", "\\ "));
       }
     }
     sc.close();
