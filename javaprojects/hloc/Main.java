@@ -1,24 +1,19 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
-    String[] input = new String[0];
-    try {
-      input = Files.readAllLines(Paths.get("/home/tls123/javaprojects/hloc/.homedb")).toArray(new String[0]);
-    } catch (IOException e) {
-      e.printStackTrace();
+    Scanner sc = new Scanner(System.in);
+    ArrayList<String> temp = new ArrayList<>();
+    while (sc.hasNextLine()) {
+      temp.add(sc.nextLine());
     }
-    ArrayList<String> output = new ArrayList<>();
+    String[] input = temp.toArray(new String[0]);
     for (int i = 0; i < input.length; i++) {
       if (input[i].substring(input[i].lastIndexOf("/")).contains(args[0])) {
-        output.add(input[i]);
+        System.out.println(input[i]);
       }
     }
-    for (int i = 0; i < output.size(); i++) {
-      System.out.println(output.get(i));
-    }
+    sc.close();
   }
 }
