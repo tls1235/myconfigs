@@ -10,12 +10,18 @@ hloc() {
     sudo mkdir /var/lib/hloc >/dev/null
   fi
   case $1 in
-  --update) sudo find "$(pwd)" -name ".git" -prune -o -name ".snapshots" -prune -o -name ".cargo" -prune -o -print | grep -v -e "%" | sudo tee /var/lib/hloc/"$USER".db >/dev/null ;;
+  --update)
+    sudo find "$(pwd)" -name ".git" -prune -o -name ".snapshots" -prune -o -name ".local/state/nvim" -prune -o -name ".cargo" -prune -o -type d -print | grep -v -e "%" | sed -z 's/\n/%\n/g' | sudo tee /var/lib/hloc/"$USER".db >/dev/null
+    sudo find "$(pwd)" -name ".cargo" -prune -o -name ".snapshots" -prune -o -name ".git" -prune -o -name ".local/state/nvim" -prune -o -type f -print | grep -v -e "%" | sudo tee -a /var/lib/hloc/"$USER.db" >/dev/null
+    ;;
   "") return ;;
   *)
     cd /var/lib/hloc
-    input="$(grep "$1" /var/lib/hloc/"$USER".db)"
-    echo "$input" | java Main "$1"
+    case "$2" in
+    "d" | "-d" | "dir" | "dirs") grep "$1" /var/lib/hloc/"$USER".db | grep -e "%" | tr -d '%' | java Main "$1" ;;
+    "f" | "-f" | "file" | "files") grep "$1" /var/lib/hloc/"$USER".db | grep -v -e "%" | java Main "$1" ;;
+    *) grep "$1" /var/lib/hloc/"$USER".db | java Main "$1" ;;
+    esac
     cd $currentdir
     echo "\nyou can update the database via 'hloc --update'"
     ;;
