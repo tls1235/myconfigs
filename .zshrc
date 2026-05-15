@@ -9,7 +9,14 @@ source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+zstyle ':fzf-tab:*' switch-group '<' '>'
 HISTSIZE=10000
 SAVEHIST=10000
 ZSH_AUTOSUGGEST_STRATEGY=completion
@@ -32,9 +39,10 @@ zstyle ':completion:*' matcher-list \
   'l:|=* r:|=*'
 alias ll='ls -ah'
 alias nix-gc='nix-collect-garbage -d'
-alias vi=nvim
+alias v=nvim
 alias soft="systemctl soft-reboot"
 alias hard="shutdown now"
-alias night="systemctl suspend & sleep 5 && pkill -9 kitty"
+alias zzz="systemctl suspend & sleep 2"
 source ~/.functions.sh
 export NIXPKGS_ALLOW_UNFREE=1
+export PATH="$PATH:$HOME/.dotnet/tools"

@@ -11,8 +11,8 @@ hloc() {
   fi
   case $1 in
   --update)
-    sudo find "$(pwd)" -name ".git" -prune -o -name ".snapshots" -prune -o -name ".local/state/nvim" -prune -o -name ".cargo" -prune -o -type d -print | grep -v -e "%" | sed -z 's/\n/%\n/g' | sudo tee /var/lib/hloc/"$USER".db >/dev/null
-    sudo find "$(pwd)" -name ".cargo" -prune -o -name ".snapshots" -prune -o -name ".git" -prune -o -name ".local/state/nvim" -prune -o -type f -print | grep -v -e "%" | sudo tee -a /var/lib/hloc/"$USER.db" >/dev/null
+    sudo find "$(pwd)" -name ".git" -prune -o -name ".snapshots" -prune -o -name ".cargo" -prune -o -type d -print | grep -v -e "%" -e ".local/state/nvim" | sed -z 's/\n/%\n/g' | sudo tee /var/lib/hloc/"$USER".db >/dev/null
+    sudo find "$(pwd)" -name ".cargo" -prune -o -name ".snapshots" -prune -o -name ".git" -prune -o -type f -print | grep -v -e "%" -e ".local/state/nvim" | sudo tee -a /var/lib/hloc/"$USER.db" >/dev/null
     ;;
   "") return ;;
   *)
