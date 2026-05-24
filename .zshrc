@@ -37,12 +37,14 @@ zstyle ':completion:*' matcher-list \
   'm:{a-z}={A-Z}' \
   'r:|[._-]=* r:|=*' \
   'l:|=* r:|=*'
-alias ll='ls -ah'
-alias nix-gc='nix-collect-garbage -d'
-alias v=nvim
+unalias ll
+ll() {command ls --color=tty -lah "${@:1}"}
+nix-gc(){nix-collect-garbage -d}
+v() {nvim $@}
+s(){sudo -E nice -19 $@}
+alias zzz="systemctl suspend & sleep 1"
 alias soft="systemctl soft-reboot"
 alias hard="shutdown now"
-alias zzz="systemctl suspend & sleep 2"
 source ~/.functions.sh
 export NIXPKGS_ALLOW_UNFREE=1
 export PATH="$PATH:$HOME/.dotnet/tools"

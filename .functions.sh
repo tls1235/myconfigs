@@ -33,3 +33,10 @@ nix-update() {
 nix-add() {
   sudo nix profile add nixpkgs#"$1" --impure
 }
+sk() {
+  sudo echo
+  sudo -E nice -19 kitty &
+}
+jvc() {
+  javac Main.java && java Main
+}
