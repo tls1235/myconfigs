@@ -34,9 +34,15 @@ nix-add() {
   sudo nix profile add nixpkgs#"$1" --impure
 }
 sk() {
-  sudo echo
-  sudo -E nice -19 kitty &
+  sudo -E setsid kitty --detach >/dev/null
 }
 jvc() {
   javac Main.java && java Main
+}
+stardew() {
+  #!/bin/bash
+  sudo input-remapper-control --command start --device "Logitech PRO X 2" --preset stardew
+  setsid steam -silent steam://rungameid/413150 >/dev/null &
+  disown
+  kill $PPID
 }
